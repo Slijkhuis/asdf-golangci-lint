@@ -1,0 +1,21 @@
+name: ci
+on: push
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: asdf
+        uses: asdf-vm/actions/setup@v1
+
+      - name: add custom asdf plugins
+        run: asdf plugin add shellcheck https://github.com/luizm/asdf-shellcheck.git
+
+      - name: asdf
+        uses: asdf-vm/actions/install@v1
+
+      - name: qa
+        run: shellcheck bin/*

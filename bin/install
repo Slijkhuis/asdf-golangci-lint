@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+fail() {
+  echo -e "\e[31mFail:\e[m $*"
+  exit 1
+}
+
+(
+  GOBIN="${ASDF_INSTALL_PATH}/bin" go install "github.com/golangci/golangci-lint/cmd/golangci-lint@${ASDF_INSTALL_VERSION}"
+  echo "The installation was successful!"
+) || (
+  rm -rf "$ASDF_INSTALL_PATH"
+  fail "An error occurred"
+)
